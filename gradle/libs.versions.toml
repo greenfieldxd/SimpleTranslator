@@ -10,8 +10,12 @@ activityCompose = "1.9.3"
 composeBom = "2024.04.01"
 hiltAndroid = "2.51.1"
 hiltCompiler = "2.51.1"
+hiltNavigationCompose = "1.2.0"
 ksp = "2.0.0-1.0.22"
 navigation = "2.8.4"
+retrofit = "2.11.0"
+retrofit2KotlinxSerializationConverter = "1.0.0"
+kotlinxSerializationJson = "1.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,9 +36,15 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 ###Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 ###Navigation
 navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+
+###Network
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 
 [plugins]
