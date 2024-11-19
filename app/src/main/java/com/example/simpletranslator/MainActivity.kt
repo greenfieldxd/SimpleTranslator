@@ -24,7 +24,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.simpletranslator.screen.TranslationScreen
+import com.example.simpletranslator.screen.history.HistoryScreen
+import com.example.simpletranslator.screen.translation.TranslationScreen
 import com.example.simpletranslator.ui.theme.SimpleTranslatorTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SimpleTranslatorTheme(false) {
+            SimpleTranslatorTheme {
                 MainScreen()
             }
         }
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 composable("chat") {}
                 composable("camera") {}
                 composable("translate") { TranslationScreen() }
-                composable("history") {}
+                composable("history") { HistoryScreen() }
                 composable("favorite") {}
             }
         }

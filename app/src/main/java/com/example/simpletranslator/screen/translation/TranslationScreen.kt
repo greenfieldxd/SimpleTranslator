@@ -1,4 +1,4 @@
-package com.example.simpletranslator.screen
+package com.example.simpletranslator.screen.translation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.simpletranslator.ui.TextInput
+import com.example.simpletranslator.ui.TranslateButton
+import com.example.simpletranslator.ui.TranslationResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,25 +26,32 @@ fun TranslationScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
-        TopAppBar(title = { Text("Simple Translator") } )
+        TopAppBar(title = { Text("Language Translator") } )
 
         TextInput(
             language = uiState.sourceLang,
             text = uiState.inputText,
             onTextChanged = { viewModel.updateInputText(it) },
-            onCleartext = { viewModel.clearInputText() }
+            onCleartext = { viewModel.clearInputText() },
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TranslateButton(onTranslate = { viewModel.translateText() })
+        TranslateButton(
+            onTranslate = { viewModel.translateText() },
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
 
-        uiState.translateText?.let {
-            TranslationResult(it)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        uiState.translatedText?.let {
+            TranslationResult(
+                result = it,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
     }
 }

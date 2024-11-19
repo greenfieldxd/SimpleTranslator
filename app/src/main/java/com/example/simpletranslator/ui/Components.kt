@@ -1,4 +1,4 @@
-package com.example.simpletranslator.screen
+package com.example.simpletranslator.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,20 +17,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TextInput(language: String, text: String, onTextChanged: (String) -> Unit, onCleartext: () -> Unit) {
-    Column {
+fun TextInput(language: String, text: String, onTextChanged: (String) -> Unit, onCleartext: () -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         Text(text = language)
-        OutlinedTextField(value = text, onValueChange = onTextChanged, modifier = Modifier.fillMaxWidth(), placeholder = {
-            IconButton(onClick = onCleartext) {
-                Icon(Icons.Default.Clear, contentDescription = "Clear text")
+        OutlinedTextField(
+            value = text,
+            onValueChange = onTextChanged,
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = {
+                Text("Enter text here")
+            },
+            trailingIcon = {
+                IconButton(onClick = onCleartext) {
+                    Icon(Icons.Default.Clear, contentDescription = "Clear text")
+                }
             }
-        })
+        )
     }
 }
 
 @Composable
-fun TranslateButton(onTranslate: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth()) {
+fun TranslateButton(onTranslate: () -> Unit, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxWidth()) {
         Button(
             onClick = onTranslate,
             modifier = Modifier
@@ -43,11 +51,16 @@ fun TranslateButton(onTranslate: () -> Unit) {
 }
 
 @Composable
-fun TranslationResult(result: String) {
+fun TranslationResult(result: String, modifier: Modifier = Modifier) {
     OutlinedTextField(
         value = result,
         onValueChange = {},
         readOnly = true,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     )
+}
+
+@Composable
+fun LanguageSelector(modifier: Modifier = Modifier) {
+    
 }
