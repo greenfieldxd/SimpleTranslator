@@ -1,7 +1,12 @@
 package com.example.simpletranslator.core.di
 
 import com.example.simpletranslator.core.data.network.TranslationApi
+import com.example.simpletranslator.core.data.storage.favorite.TranslationFavoriteDao
 import com.example.simpletranslator.core.data.storage.history.TranslationHistoryDao
+import com.example.simpletranslator.core.domain.favorite.GetFavoriteUseCase
+import com.example.simpletranslator.core.domain.favorite.GetFavoriteUseCaseImpl
+import com.example.simpletranslator.core.domain.favorite.SaveFavoriteUseCase
+import com.example.simpletranslator.core.domain.favorite.SaveFavoriteUseCaseImpl
 import com.example.simpletranslator.core.domain.history.GetHistoryUseCase
 import com.example.simpletranslator.core.domain.history.GetHistoryUseCaseImpl
 import com.example.simpletranslator.core.domain.history.SaveHistoryUseCase
@@ -34,5 +39,17 @@ class DomainModule {
     @Singleton
     fun provideGetHistoryUseCase(translationHistoryDao: TranslationHistoryDao): GetHistoryUseCase {
         return GetHistoryUseCaseImpl(translationHistoryDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSaveFavoriteUseCase(translationFavoriteDao: TranslationFavoriteDao): SaveFavoriteUseCase {
+        return SaveFavoriteUseCaseImpl(translationFavoriteDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFavoriteUseCase(translationFavoriteDao: TranslationFavoriteDao): GetFavoriteUseCase {
+        return GetFavoriteUseCaseImpl(translationFavoriteDao)
     }
 }

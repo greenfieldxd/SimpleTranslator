@@ -11,12 +11,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.simpletranslator.ui.TextInput
-import com.example.simpletranslator.ui.TranslateButton
-import com.example.simpletranslator.ui.TranslationResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,8 +30,18 @@ fun TranslationScreen(
     ) {
         TopAppBar(title = { Text("Language Translator") } )
 
+        LanguageSelector(
+            sourceLanguage = uiState.sourceLang,
+            targetLanguage = uiState.targetLang,
+            onSwapLanguages = { viewModel.swapLanguages() },
+            onSelectSourceLanguage = { viewModel.selectSourceLanguage(it) },
+            onSelectTargetLanguage = { viewModel.selectTargetLanguage(it) }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         TextInput(
-            language = uiState.sourceLang,
+            language = uiState.sourceLang.title,
             text = uiState.inputText,
             onTextChanged = { viewModel.updateInputText(it) },
             onCleartext = { viewModel.clearInputText() },
@@ -48,9 +58,19 @@ fun TranslationScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         uiState.translatedText?.let {
+            var favorite by remember { mutableStateOf(false) }
+
             TranslationResult(
+                sourceLanguage = uiState.sourceLang.title,
                 result = it,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
+                isFavorite = favorite,
+                onClickToFavorite = {
+                    if (!favorite) {
+                        viewModel.saveFavorite()
+                        favorite = true
+                    }
+                }
             )
         }
     }

@@ -2,6 +2,7 @@ package com.example.simpletranslator.core.di
 
 import android.content.Context
 import com.example.simpletranslator.core.data.storage.AppDatabase
+import com.example.simpletranslator.core.data.storage.favorite.TranslationFavoriteDao
 import com.example.simpletranslator.core.data.storage.history.TranslationHistoryDao
 import dagger.Module
 import dagger.Provides
@@ -24,5 +25,11 @@ object DatabaseModule {
     @Singleton
     fun provideHistoryDao(db: AppDatabase): TranslationHistoryDao {
         return db.translationHistoryDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDao(db: AppDatabase): TranslationFavoriteDao {
+        return db.translationFavoriteDao()
     }
 }
