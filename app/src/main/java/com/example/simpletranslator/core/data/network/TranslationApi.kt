@@ -13,12 +13,20 @@ interface TranslationApi {
         @Query("dl") destinationLanguage: String,
         @Query("text") text: String
     ) : TranslationResponse
+
+    @GET("languages")
+    suspend fun languages() : LanguagesResponse
 }
 
 @Serializable
 data class TranslationResponse(
     val pronunciation: Pronunciation,
     val translations: Translations,
+)
+
+@Serializable
+data class LanguagesResponse(
+    val languages: List<Language>
 )
 
 @Serializable
@@ -30,4 +38,10 @@ data class Pronunciation(
 @Serializable
 data class Translations(
     @SerialName("possible-translations") val possibleTranslations: List<String>,
+)
+
+@Serializable
+data class Language(
+    val code: String,
+    val name: String
 )

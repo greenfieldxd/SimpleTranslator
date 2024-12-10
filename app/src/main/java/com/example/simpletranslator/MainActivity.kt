@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -24,6 +25,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.simpletranslator.screen.favorite.FavoriteScreen
 import com.example.simpletranslator.screen.history.HistoryScreen
 import com.example.simpletranslator.screen.translation.TranslationScreen
 import com.example.simpletranslator.ui.theme.SimpleTranslatorTheme
@@ -53,13 +55,14 @@ class MainActivity : ComponentActivity() {
         ) { innerPadding ->
             NavHost(
                 navController = navController,
-                startDestination = "translate"
+                startDestination = "translate",
+                modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())
             ){
                 composable("chat") {}
                 composable("camera") {}
                 composable("translate") { TranslationScreen() }
                 composable("history") { HistoryScreen() }
-                composable("favorite") {}
+                composable("favorite") { FavoriteScreen() }
             }
         }
     }
