@@ -1,11 +1,14 @@
 package com.example.simpletranslator.screen.history
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -31,7 +34,7 @@ fun HistoryScreen(
     ) {
         TopAppBar(title = { Text("History") } )
 
-        LazyColumn (modifier = Modifier.padding(horizontal = 16.dp)) {
+        LazyColumn (modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)) {
            items(historyList) { history ->
                HistoryItem(history)
            }
@@ -41,15 +44,23 @@ fun HistoryScreen(
 
 @Composable
 fun HistoryItem(history: TranslationHistory) {
-    Column(modifier = Modifier.padding(vertical = 8.dp)) {
-        Text(text = "Source: ${history.sourceText}")
-        Text(text = "Translation: ${history.translatedText}")
-
-        // Use SimpleDateFormat with locale for compatibility with older Android versions
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val formattedTimestamp = dateFormat.format(Date(history.timestamp))
-
-        Text(text = "Timestamp: $formattedTimestamp")
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 8.dp)
+            .background(
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                shape = MaterialTheme.shapes.medium
+            )
+    ) {
+        Column (modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)){
+            Text(text = "Source: ${history.sourceText}")
+            Text(text = "Translation: ${history.translatedText}")
+            // Use SimpleDateFormat with locale for compatibility with older Android versions
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val formattedTimestamp = dateFormat.format(Date(history.timestamp))
+            Text(text = "Timestamp: $formattedTimestamp")
+        }
     }
 }
 
